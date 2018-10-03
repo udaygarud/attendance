@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>PLM LOGIX Attendance</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <script>
+        $(document).ready(function () {
+            $("#search").click(function () {
+                alert($("#datepickerfrom").val);
+                var data = "";
+                $.ajax({
+                    url: "/getattendance", success: function (result) {
+
+                        data = result;
+                        var date = '01-10-2018';
+                        var record = data['01-10-2018'];
+                        console.log(data['01-10-2018']);
+                        $('#att').append('<td>' + date + '</td>' +
+                            '<td><p> In: ' + record.UdayGarud.in + '</p><p> Out:' + record.UdayGarud.out + '</p></td>' +
+                            '<td><p> In: ' + record.AkshayJadhav.in + '</p><p> Out:' + record.AkshayJadhav.out + '</p></td>' +
+                            '<td><p> In: ' + record.MeenalSahu.in + '</p><p> Out:' + record.MeenalSahu.out + '</p></td>' +
+                            '<td><p> In: ' + record.NishaMane.in + '</p><p> Out:' + record.NishaMane.out + '</p></td>' +
+                            '<td><p> In: ' + record.SumitPathare.in + '</p><p> Out:' + record.SumitPathare.out + '</p></td>' +
+                            '<td><p> In: ' + record.SnehalMunjewar.in + '</p><p> Out:' + record.SnehalMunjewar.out + '</p></td>' +
+                            '<td><p> In: ' + record.PriyankaUrgunde.in + '</p><p> Out:' + record.PriyankaUrgunde.out + '</p></td>' +
+                            '<td><p> In: ' + record.GauravPatil.in + '</p><p> Out:' + record.GauravPatil.out + '</p></td>' +
+                            '<td><p> In: ' + record.MadhubalaChandak.in + '</p><p> Out:' + record.MadhubalaChandak.out + '</p></td>' +
+                            '<td><p> In: ' + record.ShrutikaJadhav.in + '</p><p> Out:' + record.ShrutikaJadhav.out + '</p></td>' +
+                            '<td><p> In: ' + record.SaukhyaMahure.in + '</p><p> Out:' + record.SaukhyaMahure.out + '</p></td>' +
+                            '<td><p> In: ' + record.SujitPasalkar.in + '</p><p> Out:' + record.SujitPasalkar.out + '</p></td>'
+                        );
+                    }
+                });
+            });
+        });
+
+
+    </script>
+
+    <script>
+        angular.module("app", []).controller("HelloWorldCtrl", function ($scope, $http) {
+
+            $scope.message = "Hello World";
+            $http.get('/getattendance').
+                then(function (response) {
+                    $scope.greeting = response;
+
+                });
+        })
+    </script>
+    <script>
+        $(function () {
+            $("#datepickerfrom").datepicker({
+                dateFormat: 'dd-mm-yy',
+                appendText: "(dd-mm-yyyy)"
+            });
+        });
+    </script>
+    <script>
+        $(function () {
+            $("#datepickerto").datepicker({
+                dateFormat: 'dd-mm-yy',
+                appendText: "(dd-mm-yyyy)"
+            });
+        });
+    </script>
+    <style>
+        body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 10px;
+    line-height: 1.42857143;
+    color: #333;
+    background-color: #fff;
+}p{
+    padding-left:5px; 
+    
+}
+    </style>
+</head>
+
+<body ng-app="app" ng-controller="HelloWorldCtrl">
+    <div class="container" style="padding-top:20px;">
+        <div class="row">
+            <div class="col-md-6">
+                <p style="float:right;">From Date: <input type="text" id="datepickerfrom"></p>
+            </div>
+            <div class="col-md-6">
+                <p>To Date: <input type="text" id="datepickerto"></p>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <button style="margin-top:10px;float: right;" id="search">Search</button>
+            </div>
+
+
+        </div>
+
+
+        <table class="table table-bordered" style="margin-top:20px;">
+            <thead>
+                <th>Date</th>
+                <th>Uday Garud</th>
+                <th>Akshay Jadhav</th>
+                <th>Meenal Sahu</th>
+                <th>Nisha Mane</th>
+                <th>Sumit Pathare</th>
+                <th>Snehal Munjewar</th>
+                <th>Priyanka Urgunde</th>
+                <th>Gaurav Patil</th>
+                <th>Madhubala Chandak</th>
+                <th>Shrutika Jadhav</th>
+                <th>Saukhya Mahure</th>
+                <th>Sujit Pasalkar</th>
+            </thead>
+            <tbody id="att">
+
+            </tbody>
+
+        </table>
+    </div>
+</body>
+
+</html>
