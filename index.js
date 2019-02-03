@@ -38,6 +38,20 @@ var empList = {
 }
 
 stdin.addListener("data", async function(d) {
+    var blankdata = {
+        "UdayGarud": {"in":"","out":""},
+        "AkshayJadhav":{"in":"","out":""},
+        "MeenalSahu":{"in":"","out":""},
+        "NishaMane":{"in":"","out":""},
+        "SumitPathare":{"in":"","out":""},
+        "SnehalMunjewar":{"in":"","out":""},
+        "PriyankaUrgunde":{"in":"","out":""},
+        "GauravPatil":{"in":"","out":""},
+        "MadhubalaChandak":{"in":"","out":""},
+        "ShrutikaJadhav":{"in":"","out":""},
+        "SaukhyaMahure":{"in":"","out":""},
+        "SujitPasalkar":{"in":"","out":""}
+    }
     currentemplist = empList;
     console.log(d.toString().trim());
     rfid = d.toString().trim();
@@ -49,8 +63,9 @@ stdin.addListener("data", async function(d) {
     var empname = userformat[rfid];
     console.log(empname);
     if(attendanceformat[date] == undefined){
-        attendanceformat[date] = currentemplist;
+        attendanceformat[date] = blankdata;
     }
+    currentemplist = attendanceformat[date];
     if(!check){
         currentemplist[empname]["in"] = time;
     }else if(check){
@@ -60,7 +75,7 @@ stdin.addListener("data", async function(d) {
     fs.writeFile ('./data/attendance.json', JSON.stringify(attendanceformat), function(err) {
         if (err) throw err;
         console.log('complete');
-        fse.copySync(path.resolve(__dirname,'./data/attendance.json'), './datacopy/'+date+'attendance.json');
+        fs.copySync(path.resolve(__dirname,'./data/attendance.json'), './datacopy/'+date+'attendance.json');
         }
     );
 });
