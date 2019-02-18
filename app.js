@@ -29,7 +29,6 @@ var record = {
 }
 
 stdin.addListener("data", async function (d) {
-    console.log(d.toString().trim());
     rfid = d.toString().trim();
     var date =  moment().format('DD-MM-YYYY');
     var time= moment().format('h:mm a');
@@ -38,7 +37,7 @@ stdin.addListener("data", async function (d) {
     console.log(check);
     if (fs.existsSync(filename)) {
         let rawdata = JSON.parse(fs.readFileSync(filename)); 
-        if(rawdata.date){
+        if(rawdata[date]){
             if(!check){
                 rawdata[date].in= time;
             }else if(check){
